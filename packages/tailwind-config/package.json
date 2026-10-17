@@ -1,0 +1,22 @@
+{
+  "name": "@repo/tailwind-config",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./shared-styles.css",
+    "./postcss": "./postcss.config.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "catalog:",
+    "tailwindcss": "catalog:",
+    "tailwindcss-react-aria-components": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "postcss-load-config": "catalog:",
+    "typescript": "catalog:"
+  }
+}

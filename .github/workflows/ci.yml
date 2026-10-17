@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Build
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      TURBO_REMOTE_CACHE_SIGNATURE_KEY: ${{ secrets.TURBO_REMOTE_CACHE_SIGNATURE_KEY }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+        with:
+          # Full commit history (without blobs) so --affected can find the merge base
+          fetch-depth: 0
+          filter: blob:none
+
+      - uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: "pnpm"
+
+      - name: Set up Turborepo Remote Cache
+        if: ${{ vars.TURBO_TEAM != '' }}
+        uses: vercel/setup-turborepo-remote-cache-action@v1.1.0
+        with:
+          team: ${{ vars.TURBO_TEAM }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Root tasks hash the whole repo and are cached, so they always run
+      - name: Lint, format and boundaries
+        run: pnpm turbo run lint format && pnpm turbo boundaries
+
+      - name: Type check and build affected packages
+        run: pnpm turbo run typecheck build --affected

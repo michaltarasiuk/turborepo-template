@@ -1,21 +1,70 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
+  "agentGuidance": true,
+  "cacheMaxAge": "7d",
+  "cacheMaxSize": "10GB",
+  "remoteCache": {
+    "signature": true
+  },
+  "futureFlags": {
+    "githubActionsRemoteBaseRefFallback": true,
+    "longerSignatureKey": true,
+    "strictTaskEntrypointSelection": true
+  },
   "tasks": {
     "build": {
+      "description": "Build",
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+      "outputs": ["dist/**"]
     },
-    "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
-    },
-    "dev": {
+    "start": {
+      "description": "Serve the build",
+      "dependsOn": ["build"],
       "cache": false,
       "persistent": true
+    },
+    "dev": {
+      "description": "Start dev server",
+      "cache": false,
+      "persistent": true
+    },
+    "transit": {
+      "description": "Link typecheck across packages",
+      "dependsOn": ["^transit"]
+    },
+    "typecheck": {
+      "description": "Type-check",
+      "dependsOn": ["transit"]
+    },
+    "//#lint": {
+      "description": "Lint"
+    },
+    "//#lint:fix": {
+      "description": "Fix lint issues",
+      "cache": false
+    },
+    "//#format": {
+      "description": "Check formatting"
+    },
+    "//#format:fix": {
+      "description": "Format",
+      "dependsOn": ["//#lint:fix"],
+      "cache": false
+    }
+  },
+  "boundaries": {
+    "tags": {
+      "app": {
+        "dependents": {
+          "deny": ["app"]
+        }
+      },
+      "internal": {
+        "dependencies": {
+          "deny": ["app"]
+        }
+      }
     }
   }
 }

@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "sortTailwindcss": {
+    "stylesheet": "./packages/tailwind-config/shared-styles.css",
+    "functions": ["tv"]
+  }
+}

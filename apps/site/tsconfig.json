@@ -1,0 +1,4 @@
+{
+  "extends": "@repo/typescript-config/next",
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
+}

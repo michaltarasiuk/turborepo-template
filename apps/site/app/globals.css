@@ -1,0 +1,6 @@
+@import "@repo/tailwind-config";
+@import "@repo/ui/styles.css";
+
+@theme {
+  --color-background: light-dark(var(--color-white), #1d1d1d);
+}

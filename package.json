@@ -2,19 +2,32 @@
   "name": "turborepo-template",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "check": "turbo run lint format typecheck && turbo boundaries",
+    "check:fix": "turbo run lint:fix format:fix",
+    "typecheck": "turbo run typecheck",
+    "boundaries": "turbo boundaries",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt ."
   },
   "devDependencies": {
-    "prettier": "3.9.6",
-    "turbo": "^2.11.8",
-    "typescript": "7.0.2"
+    "eslint-plugin-turbo": "catalog:",
+    "lefthook": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "turbo": "catalog:"
   },
-  "packageManager": "pnpm@11.25.0",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.11.2"
+    }
+  },
   "engines": {
-    "node": ">=24"
+    "node": "24.x"
   }
 }

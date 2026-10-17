@@ -1,0 +1,36 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "react",
+    "jsx-a11y",
+    "nextjs",
+    "promise",
+    "node"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "settings": {
+    "next": {
+      "rootDir": ["apps/site/"]
+    }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "eslint/no-shadow": "off",
+    "import/no-unassigned-import": [
+      "warn",
+      {
+        "allow": ["**/*.css"]
+      }
+    ],
+    "turbo/no-undeclared-env-vars": "error"
+  },
+  "jsPlugins": ["eslint-plugin-turbo"]
+}
