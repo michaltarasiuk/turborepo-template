@@ -245,7 +245,7 @@ importers:
         specifier: 'catalog:'
         version: 2.11.8
 
-  apps/site:
+  apps/web:
     dependencies:
       '@repo/ui':
         specifier: workspace:*

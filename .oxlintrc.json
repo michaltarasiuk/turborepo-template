@@ -18,7 +18,7 @@
   },
   "settings": {
     "next": {
-      "rootDir": ["apps/site/"]
+      "rootDir": ["apps/web/"]
     }
   },
   "rules": {

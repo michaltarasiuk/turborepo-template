@@ -6,7 +6,7 @@ A Turborepo monorepo with a Next.js app and shared Just-in-Time packages.
 
 | Path                         | Package                   | Description                                                      |
 | ---------------------------- | ------------------------- | ---------------------------------------------------------------- |
-| `apps/site`                  | `@repo/site`              | Next.js app                                                      |
+| `apps/web`                   | `@repo/web`               | Next.js app                                                      |
 | `packages/ui`                | `@repo/ui`                | React components built on React Aria Components and Tailwind CSS |
 | `packages/tailwind-config`   | `@repo/tailwind-config`   | Shared Tailwind CSS v4 theme and PostCSS config                  |
 | `packages/typescript-config` | `@repo/typescript-config` | Shared `tsconfig` presets (`base`, `react`, `next`)              |
@@ -32,7 +32,7 @@ pnpm dev
 | `pnpm check`     | Lint, check formatting, type-check, and check package boundaries |
 | `pnpm check:fix` | Fix lint issues and format                                       |
 
-Run a task for one package with `pnpm turbo run <task> --filter=@repo/site`.
+Run a task for one package with `pnpm turbo run <task> --filter=@repo/web`.
 
 ## Remote caching
 
